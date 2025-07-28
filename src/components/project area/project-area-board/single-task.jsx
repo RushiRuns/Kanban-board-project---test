@@ -1,5 +1,9 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import {
+  MdKeyboardDoubleArrowDown,
+  MdKeyboardDoubleArrowRight,
+  MdOutlineKeyboardDoubleArrowUp,
+} from "react-icons/md";
 import TasksDropDown from "../../drop downs/task-dropdown";
 
 import { useState } from "react";
@@ -29,6 +33,19 @@ export default function SingleTask({
     setDeleteOpen(false);
   }
 
+  const getPriorityIcon = (priority) => {
+    switch (priority) {
+      case "High":
+        return <MdOutlineKeyboardDoubleArrowUp />;
+      case "Medium":
+        return <MdKeyboardDoubleArrowRight />;
+      case "Low":
+        return <MdKeyboardDoubleArrowDown />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
@@ -57,15 +74,16 @@ export default function SingleTask({
           <p className="text-sm text-[#949494] mt-1">{task.description}</p>
           <div className="text-xs mt-2">
             <span
-              className={`inline-block px-2 py-1 rounded-full ${
+              className={`inline-flex items-center px-2 py-1 rounded-full ${
                 task.priority === "High"
-                  ? "bg-red-500 text-white"
+                  ? "bg-[#c7232b] text-white font-bold"
                   : task.priority === "Medium"
-                  ? "bg-yellow-500 text-black"
-                  : "bg-green-500 text-white"
+                  ? "bg-[#ffde00] text-black font-bold"
+                  : "bg-[#284634] text-white font-bold"
               }`}
             >
               {task.priority}
+              <span className="ml-1">{getPriorityIcon(task.priority)}</span>
             </span>
           </div>
           <TaskDialog
