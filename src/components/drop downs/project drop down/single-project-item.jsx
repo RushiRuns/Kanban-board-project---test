@@ -15,7 +15,6 @@ export default function SingleProjectCommandItem({
   project,
   isSelected,
   onSelectedItem,
-  projects,
   onEditProject,
   onDeleteProject,
 }) {
@@ -36,11 +35,8 @@ export default function SingleProjectCommandItem({
   return (
     <CommandItem
       value={projectName}
-      onSelect={(value) => {
-        const findProject = projects.find((proj) => proj.name === value);
-        if (findProject) {
-          onSelectedItem(findProject);
-        }
+      onSelect={() => {
+        onSelectedItem(project);
       }}
       className="cursor-pointer command-item rounded-lg p-2 inter"
     >
