@@ -14,13 +14,14 @@ import {
 import TaskDialog from "@/components/window dialog/task dialog/task-dialog";
 import DeleteTaskDialog from "@/components/window dialog/delete task dialog/delete-task-dialog";
 
-export default function SingleTask({ task, index, onDeleteTask, onUpdateTask }) {
+export default function SingleTask({
+  task,
+  index,
+  onDeleteTask,
+  onUpdateTask,
+}) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-
-  function handleEdit() {
-    setEditOpen(false);
-  }
 
   function handleDelete() {
     console.log("Deleting task with ID:", task.id);
@@ -54,7 +55,25 @@ export default function SingleTask({ task, index, onDeleteTask, onUpdateTask }) 
             </DropdownMenu>
           </div>
           <p className="text-sm text-[#949494] mt-1">{task.description}</p>
-          <TaskDialog open={editOpen} onOpenChange={setEditOpen} task={task} onUpdateTask={onUpdateTask} />
+          <div className="text-xs mt-2">
+            <span
+              className={`inline-block px-2 py-1 rounded-full ${
+                task.priority === "High"
+                  ? "bg-red-500 text-white"
+                  : task.priority === "Medium"
+                  ? "bg-yellow-500 text-black"
+                  : "bg-green-500 text-white"
+              }`}
+            >
+              {task.priority}
+            </span>
+          </div>
+          <TaskDialog
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            task={task}
+            onUpdateTask={onUpdateTask}
+          />
           <DeleteTaskDialog
             open={deleteOpen}
             onOpenChange={setDeleteOpen}
@@ -65,4 +84,3 @@ export default function SingleTask({ task, index, onDeleteTask, onUpdateTask }) 
     </Draggable>
   );
 }
-

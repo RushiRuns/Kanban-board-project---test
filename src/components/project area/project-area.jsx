@@ -13,15 +13,15 @@ export default function ProjectsArea() {
       name: "To Do",
       createdAt: new Date(),
       tasks: [
-        { id: "task-1", name: "Task 1", description: "Description 1" },
-        { id: "task-2", name: "Task 2", description: "Description 2" },
+        { id: "task-1", name: "Task 1", description: "Description 1", priority: "Low" },
+        { id: "task-2", name: "Task 2", description: "Description 2", priority: "Medium" },
       ],
     },
     {
       id: "board-2",
       name: "In progress",
       createdAt: new Date(),
-      tasks: [{ id: "task-3", name: "Task 3", description: "Description 3" }],
+      tasks: [{ id: "task-3", name: "Task 3", description: "Description 3", priority: "High" }],
     },
     { id: "board-3", name: "Done", createdAt: new Date(), tasks: [] },
   ]);
@@ -93,11 +93,12 @@ export default function ProjectsArea() {
     }
   };
 
-  const handleAddTask = (taskName, taskDescription, boardId) => {
+  const handleAddTask = (taskName, taskDescription, boardId, priority) => {
     const newTask = {
       id: `task-${Date.now()}`,
       name: taskName,
       description: taskDescription,
+      priority: priority,
     };
 
     setBoards((prevBoards) =>
@@ -109,13 +110,13 @@ export default function ProjectsArea() {
     );
   };
 
-  const handleUpdateTask = (taskId, newTaskName, newTaskDescription) => {
+  const handleUpdateTask = (taskId, newTaskName, newTaskDescription, newPriority) => {
     setBoards((prevBoards) =>
       prevBoards.map((board) => ({
         ...board,
         tasks: board.tasks.map((task) =>
           task.id === taskId
-            ? { ...task, name: newTaskName, description: newTaskDescription }
+            ? { ...task, name: newTaskName, description: newTaskDescription, priority: newPriority }
             : task
         ),
       }))

@@ -14,7 +14,6 @@ import {
 } from "react-icons/md";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { IoCheckmark } from "react-icons/io5";
-import { useState } from "react";
 
 const PriorityListArray = [
   {
@@ -37,11 +36,7 @@ const PriorityListArray = [
   },
 ];
 
-export default function PriorityList() {
-  const [selectedPriority, setSelectedPriority] = useState(
-    PriorityListArray[0]
-  );
-
+export default function PriorityList({ selectedPriority, onPriorityChange }) {
   function renderSelectedPriority() {
     return (
       <div className="flex items-center gap-2 ">
@@ -98,7 +93,7 @@ export default function PriorityList() {
             {PriorityListArray.map((priorityItem, index) => (
               <DropdownMenuItem
                 className="flex justify-between items-center"
-                onClick={() => setSelectedPriority(priorityItem)}
+                onClick={() => onPriorityChange(priorityItem)}
                 key={index}
               >
                 {renderDropDownMenuItem(priorityItem)}

@@ -9,6 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import {
+  MdKeyboardDoubleArrowRight,
+  MdOutlineKeyboardDoubleArrowUp,
+} from "react-icons/md";
+import { RiArrowDownDoubleFill } from "react-icons/ri";
 
 import { BiTask } from "react-icons/bi";
 import TaskName from "./sub components/task-name";
@@ -16,20 +21,54 @@ import TaskDescription from "./sub components/task-description";
 import ProjectsList from "./sub components/project-list";
 import PriorityList from "./sub components/priority-list";
 
-export default function TaskDialog({ open, onOpenChange, task, onAddTask, onUpdateTask }) {
+const PriorityListArray = [
+  {
+    name: "Low",
+    icon: RiArrowDownDoubleFill,
+    textColor: "text-green-700",
+    backgroundColor: "bg-green-500/10",
+  },
+  {
+    name: "Medium",
+    icon: MdKeyboardDoubleArrowRight,
+    textColor: "text-yellow-700",
+    backgroundColor: "bg-yellow-500/10",
+  },
+  {
+    name: "High",
+    icon: MdOutlineKeyboardDoubleArrowUp,
+    textColor: "text-red-700",
+    backgroundColor: "bg-red-500/10",
+  },
+];
+
+export default function TaskDialog({
+  open,
+  onOpenChange,
+  task,
+  onAddTask,
+  onUpdateTask,
+}) {
   console.log("TaskDialog received onUpdateTask:", onUpdateTask);
   const [taskName, setTaskName] = useState(task?.name || "");
-  const [taskDescription, setTaskDescription] = useState(task?.description || "");
+  const [taskDescription, setTaskDescription] = useState(
+    task?.description || ""
+  );
+  const [selectedPriority, setSelectedPriority] = useState(
+    task
+      ? PriorityListArray.find((p) => p.name === task.priority)
+      : PriorityListArray[0]
+  );
 
   const title = task ? "Edit Task" : "New Task";
   const buttonText = task ? "Update Task" : "Add New Task";
 
   const handleCreateOrUpdateTask = () => {
     if (task) {
-      onUpdateTask(task.id, taskName, taskDescription);
+      onUpdateTask(task.id, taskName, taskDescription, selectedPriority.name);
     } else {
       // For now, default to the first board (To Do)
-      onAddTask(taskName, taskDescription, "board-1");
+      onAddTask(taskName, taskDescription, "board-1", selectedPriority.name);
     }
     onOpenChange(false);
   };
@@ -64,12 +103,18 @@ export default function TaskDialog({ open, onOpenChange, task, onAddTask, onUpda
         <div className="grid grid-cols-2 gap-6 mt-8">
           <div className="flex flex-col gap-3">
             <TaskName value={taskName} onChange={setTaskName} />
-            <TaskDescription value={taskDescription} onChange={setTaskDescription} />
+            <TaskDescription
+              value={taskDescription}
+              onChange={setTaskDescription}
+            />
           </div>
 
           <div className="flex flex-col gap-[53px] ">
             <ProjectsList />
-            <PriorityList />
+            <PriorityList
+              selectedPriority={selectedPriority}
+              onPriorityChange={setSelectedPriority}
+            />
           </div>
         </div>
 
