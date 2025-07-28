@@ -5,6 +5,16 @@ export default function SingleBoard({ board, index, onDeleteTask, onUpdateTask }
   const { name: boardName, tasks } = board;
   const numberTasks = tasks.length;
 
+  const priorityOrder = {
+    "High": 1,
+    "Medium": 2,
+    "Low": 3,
+  };
+
+  const sortedTasks = [...tasks].sort((a, b) => {
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
   return (
     <Draggable draggableId={board.id} index={index}>
       {(provided) => (
@@ -37,7 +47,7 @@ export default function SingleBoard({ board, index, onDeleteTask, onUpdateTask }
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {tasks.map((task, index) => (
+                {sortedTasks.map((task, index) => (
                   <SingleTask key={task.id} task={task} index={index} onDeleteTask={onDeleteTask} onUpdateTask={onUpdateTask} />
                 ))}
                 {provided.placeholder}
