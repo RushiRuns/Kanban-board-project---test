@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+hr {
+  border: 1px solid #424141;
+  margin-bottom: 2rem;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* section => Homepage */
+
+.inter {
+  font-family: "Inter", sans-serif;
+}
+
+.dm-sans {
+  font-family: "DM Sans", sans-serif;
+}
+
+.container-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.bg-homepage {
+  background-color: #ffe6c9;
+}
+
+.w-nav {
+  max-width: 1400px;
+}
+
+.btn-font {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.heading {
+  font-size: 90px;
+  font-weight: 700;
+  color: #212121;
+  line-height: 80px;
+}
+
+.sub-heading {
+  font-size: 22px;
+  font-weight: 400;
+  color: #666666;
+}
+
+/* section => Authentication */
+
+/* section => kanban board */
+
+.error {
+  background-color: red;
+}
+
+.bbb {
+  border: 1px solid blue;
+}
+
+#container {
+  background-color: #191919;
+}
+
+.nav button {
+  border: 1px solid #2c2c2c;
+  padding: 0 1rem;
+}
+
+.nav button:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+.kb-container {
+  background-color: #191919;
+  padding: 8rem 8rem 0 8rem;
+  min-height: 90vh;
+}
+
+.project-dropdown {
+  width: 20%;
+  background-color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.hover-stop {
+  color: white;
+}
+
+.command-container {
+  background-color: #202020;
+  border: 1px solid #2c2c2c;
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.285);
+}
+
+.command-item {
+  background-color: #2f2f2f;
+  color: white;
+  border: 1px solid #2c2c2c;
+}
+
+.command-item:hover {
+  border: 1px solid rgb(186, 184, 184);
+}
+
+.btn-plus {
+  background-color: #2f2f2f;
+  border: 1px solid #2c2c2c;
+}
+
+.btn-plus:hover {
+  background-color: #2f2f2f;
+  border: 1px solid rgb(186, 184, 184);
+}
+
+.btn-task {
+  background-color: #191919;
+  color: #abacac;
+  border: 1px solid #373737;
+}
+
+.btn-task:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+.btn-task span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dialog-container {
+  background-color: #2f2f2f;
+  border: 1px solid #2c2c2c;
+}
+
+.project-selection {
+  background-color: #2f2f2f;
+}
+
+.board-task {
+  background-color: #202020;
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.178);
+}
+
+.column-header {
+  margin-bottom: 0 !important;
+}
+
+.board-badge-container {
+  background-color: #353535;
+  display: flex; /* Ensure flex layout */
+  align-items: center; /* Vertically center */
+  gap: 6px;
+  padding: 0.2rem;
+}
+
+.board-badge-text {
+  border-radius: 1rem;
+  padding: 0.01rem 0.5rem 0.01rem 0.01rem;
+}
+
+.task-card {
+  background-color: #2f2f2f;
+  border: 1px solid #2c2c2c;
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.178);
+}
