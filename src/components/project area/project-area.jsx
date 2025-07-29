@@ -65,8 +65,10 @@ export default function ProjectsArea() {
 
       if (source.droppableId === destination.droppableId) {
         const newTasks = Array.from(sourceBoard.tasks);
-        const [reorderedTask] = newTasks.splice(source.index, 1);
-        newTasks.splice(destination.index, 0, reorderedTask);
+        const taskToMove = newTasks.find(t => t.id === result.draggableId);
+        const taskIndex = newTasks.findIndex(t => t.id === result.draggableId);
+        newTasks.splice(taskIndex, 1);
+        newTasks.splice(destination.index, 0, taskToMove);
 
         const newBoards = boards.map((board) =>
           board.id === source.droppableId
@@ -76,9 +78,12 @@ export default function ProjectsArea() {
         setBoards(newBoards);
       } else {
         const sourceTasks = Array.from(sourceBoard.tasks);
-        const [movedTask] = sourceTasks.splice(source.index, 1);
+        const taskToMove = sourceTasks.find(t => t.id === result.draggableId);
+        const taskIndex = sourceTasks.findIndex(t => t.id === result.draggableId);
+        sourceTasks.splice(taskIndex, 1);
+
         const destTasks = Array.from(destBoard.tasks);
-        destTasks.splice(destination.index, 0, movedTask);
+        destTasks.splice(destination.index, 0, taskToMove);
 
         const newBoards = boards.map((board) => {
           if (board.id === source.droppableId) {

@@ -79,7 +79,7 @@ export default function SingleTask({
                   ? "bg-[#c7232b] text-white font-bold"
                   : task.priority === "Medium"
                   ? "bg-[#ffde00] text-black font-bold"
-                  : "bg-[#284634] text-white font-bold"
+                  : "bg-[#00844b] text-white font-bold"
               }`}
             >
               {task.priority}
