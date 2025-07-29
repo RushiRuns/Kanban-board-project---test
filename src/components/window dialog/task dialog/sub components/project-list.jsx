@@ -1,19 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-dropdown-menu";
-import { AiFillSafetyCertificate } from "react-icons/ai";
-import { IoIosArrowDown, IoMdSearch } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
-import { MdOutlineCategory } from "react-icons/md";
 
 const ProjectsArray = [
   {
     name: "Project 1",
-    icon: MdOutlineCategory,
   },
   {
     name: "Project 2",
-    icon: AiFillSafetyCertificate,
   },
 ];
 
@@ -38,12 +34,8 @@ export default function ProjectsList() {
   );
 
   function renderSelectedProject() {
-    const Icon = selectedProject.icon;
     return (
       <div className="flex items-center gap-2 ">
-        <div className="size-7 rounded-md flex items-center justify-center text-lg text-primary bg-primary/10">
-          {<Icon />}
-        </div>
         <span>{selectedProject.name}</span>
       </div>
     );
@@ -58,12 +50,9 @@ export default function ProjectsList() {
           setIsOpen(false);
         }}
       >
-        <div className="size-7 bg-primary/10 rounded-md flex items-center justify-center text-[15px] text-primary ">
-          {<projectItem.icon />}
-        </div>
-        <span>{projectItem.name}</span>
+        <span className="ml-2">{projectItem.name}</span>
         {projectItem.name === selectedProject.name && (
-          <IoCheckmark className="ml-auto" />
+          <IoCheckmark className="ml-auto mr-2" />
         )}
       </div>
     );
@@ -92,7 +81,6 @@ export default function ProjectsList() {
             placeholder="Search"
             className="w-full border border-gray-300 rounded-md px-2 py-1"
           />
-          <IoMdSearch className="absolute top-[13px] left-2 text-lg text-gray-500 " />
 
           <div className="max-h-60 overflow-y-auto my-2">
             {filterBySearchQuery.map((projectItem, index) => (
