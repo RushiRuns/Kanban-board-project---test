@@ -4,17 +4,11 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
 
-const ProjectsArray = [
-  {
-    name: "Project 1",
-  },
-  {
-    name: "Project 2",
-  },
-];
+import { useProjects } from "../../../../context/ProjectContext";
 
 export default function ProjectsList() {
-  const [selectedProject, setSelectedProject] = useState(ProjectsArray[0]);
+  const { projects } = useProjects();
+  const [selectedProject, setSelectedProject] = useState(projects.length > 0 ? projects[0] : null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -29,7 +23,7 @@ export default function ProjectsList() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const filterBySearchQuery = ProjectsArray.filter((project) =>
+  const filterBySearchQuery = projects.filter((project) =>
     project.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -67,7 +61,7 @@ export default function ProjectsList() {
           className="w-full h-11 flex justify-between items-center border glass-effect"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {renderSelectedProject()}
+          {selectedProject ? renderSelectedProject() : "Select a project"}
           <IoIosArrowDown />
         </Button>
       </div>
@@ -88,6 +82,9 @@ export default function ProjectsList() {
                 {renderDropDownMenuItem(projectItem)}
               </div>
             ))}
+            {filterBySearchQuery.length === 0 && (
+              <div className="text-sm text-gray-500 px-2 py-1">No projects found.</div>
+            )}
           </div>
         </div>
       )}
