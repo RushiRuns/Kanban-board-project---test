@@ -4,9 +4,11 @@ import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 
 import ProjectsAreaHeader from "./project-area-header/project-area-header";
 import ProjectsAreaBoards from "./project-area-board/project-area-boards";
+import { useProjects } from "../../context/ProjectContext";
 
 export default function ProjectsArea() {
   const navigate = useNavigate();
+  const { projects, addProject, updateProject, deleteProject } = useProjects();
   const [boards, setBoards] = useState([
     {
       id: "board-1",
@@ -24,23 +26,6 @@ export default function ProjectsArea() {
       tasks: [{ id: "task-3", name: "Task 3", description: "Description 3", priority: "High" }],
     },
     { id: "board-3", name: "Done", createdAt: new Date(), tasks: [] },
-  ]);
-
-  const [projects, setProjects] = useState([
-    {
-      id: "1",
-      name: "Project Creation",
-      icon: null,
-      createdAt: new Date(),
-      tasks: [],
-    },
-    {
-      id: "2",
-      name: "Studying for Exam",
-      icon: null,
-      createdAt: new Date(),
-      tasks: [],
-    },
   ]);
 
   const onDragEnd = (result) => {
@@ -67,6 +52,7 @@ export default function ProjectsArea() {
         const newTasks = Array.from(sourceBoard.tasks);
         const taskToMove = newTasks.find(t => t.id === result.draggableId);
         const taskIndex = newTasks.findIndex(t => t.id === result.draggableId);
+        if (taskIndex === -1) return;
         newTasks.splice(taskIndex, 1);
         newTasks.splice(destination.index, 0, taskToMove);
 
@@ -80,6 +66,7 @@ export default function ProjectsArea() {
         const sourceTasks = Array.from(sourceBoard.tasks);
         const taskToMove = sourceTasks.find(t => t.id === result.draggableId);
         const taskIndex = sourceTasks.findIndex(t => t.id === result.draggableId);
+        if (taskIndex === -1) return;
         sourceTasks.splice(taskIndex, 1);
 
         const destTasks = Array.from(destBoard.tasks);
@@ -129,48 +116,10 @@ export default function ProjectsArea() {
   };
 
   const handleDeleteTask = (taskId) => {
-    console.log("Attempting to delete task with ID:", taskId);
-    setBoards((prevBoards) => {
-      console.log("Boards before deletion:", prevBoards);
-      const updatedBoards = prevBoards.map((board) => ({
-        ...board,
-        tasks: board.tasks.filter((task) => task.id !== taskId),
-      }));
-      console.log("Boards after deletion:", updatedBoards);
-      return updatedBoards;
-    });
-  };
-
-  const handleAddProject = (projectName) => {
-    const newProject = {
-      id: `${Date.now()}`,
-      name: projectName,
-      icon: null,
-      createdAt: new Date(),
-      tasks: [],
-    };
-    setProjects((prevProjects) => [...prevProjects, newProject]);
-  };
-
-  const handleEditProject = (projectId, newProjectName) => {
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === projectId
-          ? { ...project, name: newProjectName }
-          : project
-      )
-    );
-  };
-
-  const handleDeleteProject = (projectId) => {
-    setProjects((prevProjects) =>
-      prevProjects.filter((project) => project.id !== projectId)
-    );
-    // Also delete tasks associated with this project if necessary
     setBoards((prevBoards) =>
       prevBoards.map((board) => ({
         ...board,
-        tasks: board.tasks.filter((task) => task.projectId !== projectId), // Assuming tasks have a projectId
+        tasks: board.tasks.filter((task) => task.id !== taskId),
       }))
     );
   };
@@ -198,9 +147,9 @@ export default function ProjectsArea() {
           onUpdateTask={handleUpdateTask}
           onDeleteTask={handleDeleteTask}
           projects={projects}
-          onAddProject={handleAddProject}
-          onEditProject={handleEditProject}
-          onDeleteProject={handleDeleteProject}
+          onAddProject={addProject}
+          onEditProject={updateProject}
+          onDeleteProject={deleteProject}
         />
         <hr />
         <ProjectsAreaBoards boards={boards} onDragEnd={onDragEnd} onDeleteTask={handleDeleteTask} onUpdateTask={handleUpdateTask} />

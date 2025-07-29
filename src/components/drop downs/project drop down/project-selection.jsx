@@ -7,14 +7,15 @@ import {
 
 import ProjectCommandItems from "./project-command-items";
 import { useState, useEffect } from "react";
+import { useProjects } from "../../../context/ProjectContext";
 
 export default function ProjectSelectionDropDown({
-  projects,
   onAddProject,
   onEditProject,
   onDeleteProject,
 }) {
-  const [selectedProject, setSelectedProject] = useState(projects[0]);
+  const { projects } = useProjects();
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     if (projects.length > 0 && !selectedProject) {

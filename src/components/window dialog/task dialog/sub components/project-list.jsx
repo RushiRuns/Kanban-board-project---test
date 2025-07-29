@@ -23,6 +23,14 @@ export default function ProjectsList() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (projects.length > 0 && (!selectedProject || !projects.some(p => p.id === selectedProject.id))) {
+      setSelectedProject(projects[0]);
+    } else if (projects.length === 0) {
+      setSelectedProject(null);
+    }
+  }, [projects, selectedProject]);
+
   const filterBySearchQuery = projects.filter((project) =>
     project.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
