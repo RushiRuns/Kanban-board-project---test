@@ -24,6 +24,7 @@ export default function ProjectsArea() {
     },
     { id: "board-3", name: "Done", createdAt: new Date(), tasks: [] },
   ]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const onDragEnd = (result) => {
     const { source, destination, type } = result;
@@ -159,9 +160,11 @@ export default function ProjectsArea() {
           onAddProject={addProject}
           onEditProject={updateProject}
           onDeleteProject={deleteProject}
+          selectedProject={selectedProject}
+          setSelectedProject={setSelectedProject}
         />
         <hr />
-        <ProjectsAreaBoards boards={boards} onDragEnd={onDragEnd} onDeleteTask={handleDeleteTask} onUpdateTask={handleUpdateTask} />
+        <ProjectsAreaBoards boards={boards} onDragEnd={onDragEnd} onDeleteTask={handleDeleteTask} onUpdateTask={handleUpdateTask} selectedProject={selectedProject} />
       </div>
     </div>
   );

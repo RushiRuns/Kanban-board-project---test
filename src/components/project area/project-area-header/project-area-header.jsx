@@ -10,6 +10,8 @@ export default function ProjectsAreaHeader({
   onAddProject,
   onEditProject,
   onDeleteProject,
+  selectedProject,
+  setSelectedProject,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -20,6 +22,8 @@ export default function ProjectsAreaHeader({
         onAddProject={onAddProject}
         onEditProject={onEditProject}
         onDeleteProject={onDeleteProject}
+        selectedProject={selectedProject}
+        setSelectedProject={setSelectedProject}
       />
       <TaskDialog
         open={open}

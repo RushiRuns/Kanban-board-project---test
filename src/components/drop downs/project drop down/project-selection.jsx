@@ -13,9 +13,10 @@ export default function ProjectSelectionDropDown({
   onAddProject,
   onEditProject,
   onDeleteProject,
+  selectedProject,
+  setSelectedProject,
 }) {
   const { projects } = useProjects();
-  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     if (projects.length > 0 && !selectedProject) {
