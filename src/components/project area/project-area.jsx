@@ -14,16 +14,13 @@ export default function ProjectsArea() {
       id: "board-1",
       name: "To Do",
       createdAt: new Date(),
-      tasks: [
-        { id: "task-1", name: "Task 1", description: "Description 1", priority: "Low" },
-        { id: "task-2", name: "Task 2", description: "Description 2", priority: "Medium" },
-      ],
+      tasks: [],
     },
     {
       id: "board-2",
       name: "In progress",
       createdAt: new Date(),
-      tasks: [{ id: "task-3", name: "Task 3", description: "Description 3", priority: "High" }],
+      tasks: [],
     },
     { id: "board-3", name: "Done", createdAt: new Date(), tasks: [] },
   ]);

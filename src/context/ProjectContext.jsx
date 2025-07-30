@@ -5,10 +5,7 @@ const ProjectContext = createContext();
 export const useProjects = () => useContext(ProjectContext);
 
 export const ProjectProvider = ({ children }) => {
-  const [projects, setProjects] = useState([
-    { id: "1", name: "Project Creation", tasks: [] },
-    { id: "2", name: "Studying for Exam", tasks: [] },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   const addProject = (projectName) => {
     const newProject = {
