@@ -35,11 +35,26 @@ export const ProjectProvider = ({ children }) => {
     );
   };
 
+  const updateTaskCount = (projectId, oldProjectId) => {
+    setProjects((prevProjects) =>
+      prevProjects.map((project) => {
+        if (project.id === projectId) {
+          return { ...project, tasks: [...project.tasks, 1] };
+        }
+        if (project.id === oldProjectId) {
+          return { ...project, tasks: project.tasks.slice(1) };
+        }
+        return project;
+      })
+    );
+  };
+
   const value = {
     projects,
     addProject,
     updateProject,
     deleteProject,
+    updateTaskCount,
   };
 
   return (

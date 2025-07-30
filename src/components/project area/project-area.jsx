@@ -8,7 +8,7 @@ import { useProjects } from "../../context/ProjectContext";
 
 export default function ProjectsArea() {
   const navigate = useNavigate();
-  const { projects, addProject, updateProject, deleteProject } = useProjects();
+  const { projects, addProject, updateProject, deleteProject, updateTaskCount } = useProjects();
   const [boards, setBoards] = useState([
     {
       id: "board-1",
@@ -101,6 +101,7 @@ export default function ProjectsArea() {
           : board
       )
     );
+    updateTaskCount(projectId);
   };
 
   const handleUpdateTask = (taskId, newTaskName, newTaskDescription, newPriority, newProjectId) => {
@@ -114,9 +115,19 @@ export default function ProjectsArea() {
         ),
       }))
     );
+
+    const oldProjectId = boards.flatMap(board => board.tasks).find(task => task.id === taskId)?.projectId;
+    if (oldProjectId !== newProjectId) {
+      updateTaskCount(newProjectId, oldProjectId);
+    }
   };
 
   const handleDeleteTask = (taskId) => {
+    const taskToDelete = boards.flatMap(board => board.tasks).find(task => task.id === taskId);
+    if (taskToDelete && taskToDelete.projectId) {
+      updateTaskCount(null, taskToDelete.projectId);
+    }
+
     setBoards((prevBoards) =>
       prevBoards.map((board) => ({
         ...board,
