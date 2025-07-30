@@ -21,3 +21,4 @@ export default function ProjectsAreaTasksBoard({ boards, onDragEnd, onDeleteTask
     </DragDropContext>
   );
 }
+

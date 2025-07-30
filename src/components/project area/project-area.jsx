@@ -85,12 +85,13 @@ export default function ProjectsArea() {
     }
   };
 
-  const handleAddTask = (taskName, taskDescription, boardId, priority) => {
+  const handleAddTask = (taskName, taskDescription, boardId, priority, projectId) => {
     const newTask = {
       id: `task-${Date.now()}`,
       name: taskName,
       description: taskDescription,
       priority: priority,
+      projectId: projectId,
     };
 
     setBoards((prevBoards) =>
@@ -102,13 +103,13 @@ export default function ProjectsArea() {
     );
   };
 
-  const handleUpdateTask = (taskId, newTaskName, newTaskDescription, newPriority) => {
+  const handleUpdateTask = (taskId, newTaskName, newTaskDescription, newPriority, newProjectId) => {
     setBoards((prevBoards) =>
       prevBoards.map((board) => ({
         ...board,
         tasks: board.tasks.map((task) =>
           task.id === taskId
-            ? { ...task, name: newTaskName, description: newTaskDescription, priority: newPriority }
+            ? { ...task, name: newTaskName, description: newTaskDescription, priority: newPriority, projectId: newProjectId }
             : task
         ),
       }))

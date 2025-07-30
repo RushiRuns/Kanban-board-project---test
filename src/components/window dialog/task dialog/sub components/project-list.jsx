@@ -6,9 +6,8 @@ import { IoCheckmark } from "react-icons/io5";
 
 import { useProjects } from "../../../../context/ProjectContext";
 
-export default function ProjectsList() {
+export default function ProjectsList({ selectedProject, onProjectChange }) {
   const { projects } = useProjects();
-  const [selectedProject, setSelectedProject] = useState(projects.length > 0 ? projects[0] : null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -25,11 +24,11 @@ export default function ProjectsList() {
 
   useEffect(() => {
     if (projects.length > 0 && (!selectedProject || !projects.some(p => p.id === selectedProject.id))) {
-      setSelectedProject(projects[0]);
+      onProjectChange(projects[0]);
     } else if (projects.length === 0) {
-      setSelectedProject(null);
+      onProjectChange(null);
     }
-  }, [projects, selectedProject]);
+  }, [projects, selectedProject, onProjectChange]);
 
   const filterBySearchQuery = projects.filter((project) =>
     project.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -48,12 +47,12 @@ export default function ProjectsList() {
       <div
         className="flex items-center gap-2 hover:bg-gray-100 cursor-pointer"
         onClick={() => {
-          setSelectedProject(projectItem);
+          onProjectChange(projectItem);
           setIsOpen(false);
         }}
       >
         <span className="ml-2">{projectItem.name}</span>
-        {projectItem.name === selectedProject.name && (
+        {selectedProject && projectItem.name === selectedProject.name && (
           <IoCheckmark className="ml-auto mr-2" />
         )}
       </div>

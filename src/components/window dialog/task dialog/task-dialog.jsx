@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,6 +20,7 @@ import TaskName from "./sub components/task-name";
 import TaskDescription from "./sub components/task-description";
 import ProjectsList from "./sub components/project-list";
 import PriorityList from "./sub components/priority-list";
+import { useProjects } from "../../../context/ProjectContext";
 
 const PriorityListArray = [
   {
@@ -49,7 +50,7 @@ export default function TaskDialog({
   onAddTask,
   onUpdateTask,
 }) {
-  console.log("TaskDialog received onUpdateTask:", onUpdateTask);
+  const { projects } = useProjects();
   const [taskName, setTaskName] = useState(task?.name || "");
   const [taskDescription, setTaskDescription] = useState(
     task?.description || ""
@@ -59,16 +60,37 @@ export default function TaskDialog({
       ? PriorityListArray.find((p) => p.name === task.priority)
       : PriorityListArray[0]
   );
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    if (task && projects.length > 0) {
+      const project = projects.find(p => p.id === task.projectId);
+      setSelectedProject(project || projects[0]);
+    } else if (projects.length > 0) {
+      setSelectedProject(projects[0]);
+    }
+  }, [task, projects]);
 
   const title = task ? "Edit Task" : "New Task";
   const buttonText = task ? "Update Task" : "Add New Task";
 
   const handleCreateOrUpdateTask = () => {
     if (task) {
-      onUpdateTask(task.id, taskName, taskDescription, selectedPriority.name);
+      onUpdateTask(
+        task.id,
+        taskName,
+        taskDescription,
+        selectedPriority.name,
+        selectedProject.id
+      );
     } else {
-      // For now, default to the first board (To Do)
-      onAddTask(taskName, taskDescription, "board-1", selectedPriority.name);
+      onAddTask(
+        taskName,
+        taskDescription,
+        "board-1",
+        selectedPriority.name,
+        selectedProject.id
+      );
     }
     onOpenChange(false);
   };
@@ -110,7 +132,7 @@ export default function TaskDialog({
           </div>
 
           <div className="flex flex-col gap-[53px] ">
-            <ProjectsList />
+            <ProjectsList selectedProject={selectedProject} onProjectChange={setSelectedProject} />
             <PriorityList
               selectedPriority={selectedPriority}
               onPriorityChange={setSelectedPriority}
