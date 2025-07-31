@@ -73,6 +73,7 @@ export default function TaskDialog({
 
   const title = task ? "Edit Task" : "New Task";
   const buttonText = task ? "Update Task" : "Add New Task";
+  const isInvalid = !taskName || !taskDescription || !selectedProject;
 
   const handleCreateOrUpdateTask = () => {
     if (task) {
@@ -144,7 +145,11 @@ export default function TaskDialog({
           <Separator className="mt-4 left-0 absolute" />
         </div>
         <div className="flex gap-1 justify-end mt-6">
-          <Button className="ml-5 px-5 bg-blue-600 text-white" onClick={handleCreateOrUpdateTask}>
+          <Button
+            className="ml-5 px-5 bg-blue-600 text-white font-bold"
+            onClick={handleCreateOrUpdateTask}
+            disabled={!task && isInvalid}
+          >
             {buttonText}
           </Button>
         </div>

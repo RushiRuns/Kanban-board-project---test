@@ -46,7 +46,7 @@ export default function EditProjectDialog({ open, onOpenChange, onEdit, project 
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleEdit} className="bg-blue-600 text-white">
+          <Button type="submit" onClick={handleEdit} className="bg-blue-600 text-white font-bold">
             Update
           </Button>
         </DialogFooter>

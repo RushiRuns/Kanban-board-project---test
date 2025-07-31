@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 
 export default function CreateProjectDialog({ open, onOpenChange, onCreate }) {
   const [projectName, setProjectName] = useState("");
+  const isInvalid = !projectName;
 
   const handleCreate = () => {
     onCreate(projectName);
@@ -42,7 +43,12 @@ export default function CreateProjectDialog({ open, onOpenChange, onCreate }) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleCreate} className="bg-blue-600 text-white">
+          <Button
+            type="submit"
+            onClick={handleCreate}
+            className="bg-blue-600 text-white font-bold"
+            disabled={isInvalid}
+          >
             Create
           </Button>
         </DialogFooter>
