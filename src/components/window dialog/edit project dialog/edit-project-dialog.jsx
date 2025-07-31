@@ -25,10 +25,10 @@ export default function EditProjectDialog({ open, onOpenChange, onEdit, project 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-[#202020] text-white">
         <DialogHeader>
           <DialogTitle>Edit project</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Update the name of your project.
           </DialogDescription>
         </DialogHeader>
@@ -41,12 +41,12 @@ export default function EditProjectDialog({ open, onOpenChange, onEdit, project 
               id="name"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="col-span-3"
+              className="col-span-3 bg-[#202020] text-white"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleEdit}>
+          <Button type="submit" onClick={handleEdit} className="bg-blue-600 text-white">
             Update
           </Button>
         </DialogFooter>

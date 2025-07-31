@@ -19,19 +19,19 @@ const PriorityListArray = [
   {
     name: "Low",
     icon: RiArrowDownDoubleFill,
-    textColor: "text-green-700",
+    textColor: "text-white",
     backgroundColor: "bg-green-500/10",
   },
   {
     name: "Medium",
     icon: MdKeyboardDoubleArrowRight,
-    textColor: "text-yellow-700",
+    textColor: "text-white",
     backgroundColor: "bg-yellow-500/10",
   },
   {
     name: "High",
     icon: MdOutlineKeyboardDoubleArrowUp,
-    textColor: "text-red-700",
+    textColor: "text-white",
     backgroundColor: "bg-red-500/10",
   },
 ];
@@ -41,7 +41,7 @@ export default function PriorityList({ selectedPriority, onPriorityChange }) {
     return (
       <div className="flex items-center gap-2 ">
         <div
-          className={`size-6 ${selectedPriority.backgroundColor} rounded-md flex items-center justify-center text-lg ${selectedPriority.textColor}`}
+          className={`size-6 ${selectedPriority.backgroundColor} rounded-md flex items-center justify-center text-lg font-bold ${selectedPriority.textColor}`}
         >
           {<selectedPriority.icon />}
         </div>
@@ -54,13 +54,13 @@ export default function PriorityList({ selectedPriority, onPriorityChange }) {
 
   function renderDropDownMenuItem(priorityItem) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 ">
         <div
-          className={`size-6 ${priorityItem.backgroundColor} rounded-md flex items-center justify-center text-lg ${priorityItem.textColor}`}
+          className={`size-6 ${priorityItem.backgroundColor}  rounded-md flex items-center  justify-center text-lg ${priorityItem.textColor}`}
         >
           {<priorityItem.icon />}
         </div>
-        <span className={`${priorityItem.textColor}`}>{priorityItem.name}</span>
+        <span className={`${priorityItem.textColor} group-focus:text-black`}>{priorityItem.name}</span>
       </div>
     );
   }
@@ -73,14 +73,14 @@ export default function PriorityList({ selectedPriority, onPriorityChange }) {
 
   return (
     <div className="">
-      <Label className="opacity-75 text-sm font-medium">Priority</Label>
+      <Label className=" text-sm font-medium">Priority</Label>
       <div className="mt-2 w-full ">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               id="priority-dropdown"
               variant={"outline"}
-              className="w-full h-11 flex justify-between glass-effect"
+              className="w-full h-11 flex justify-between bg-gray text-white "
             >
               {renderSelectedPriority()}
               <IoIosArrowDown className="text-gray-600" />
@@ -88,11 +88,11 @@ export default function PriorityList({ selectedPriority, onPriorityChange }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
-            className="w-full min-w-[var(--radix-dropdown-menu-trigger-width)] poppins"
+            className="w-full min-w-[var(--radix-dropdown-menu-trigger-width)] poppins bg-[#2f2f2f] text-white "
           >
             {PriorityListArray.map((priorityItem, index) => (
               <DropdownMenuItem
-                className="flex justify-between items-center"
+                className="group flex justify-between items-center "
                 onClick={() => onPriorityChange(priorityItem)}
                 key={index}
               >

@@ -19,12 +19,13 @@ export default function TaskDescription({ value, onChange }) {
 
   return (
     <div className="flex flex-col gap-2 mt-4">
-      <Label className="opacity-75 text-sm font-medium">Task Description</Label>
+      <Label className=" text-sm font-medium">Task Description</Label>
       <Textarea
         value={textCounter}
         onChange={handleTextChange}
         placeholder="Give a description of the task"
-        className="resize-none"
+        className="resize-none bg-[#2f2f2f] text-white"
+        
       />
 
       <div className="flex justify-between items-center">

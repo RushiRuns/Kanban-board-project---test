@@ -11,7 +11,7 @@ export default function TaskName({ value, onChange }) {
         placeholder="Enter task name"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-transparent border-gray-500 "
+        className="bg-[#2f2f2f]  text-white"
       />
     </div>
   );

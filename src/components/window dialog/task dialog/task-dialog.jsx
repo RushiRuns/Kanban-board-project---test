@@ -104,7 +104,7 @@ export default function TaskDialog({
           </Button>
         </DialogTrigger>
       )}
-      <DialogContent className="dialog-container max-w-3xl inter text-white">
+      <DialogContent className="dialog-container max-w-3xl inter text-white bg-gray-800">
         <DialogHeader className="">
           <div className="size-10 bg-gray-200 rounded-full flex items-center justify-center">
             <BiTask className="text-xl text-gray-700" />
@@ -131,7 +131,7 @@ export default function TaskDialog({
             />
           </div>
 
-          <div className="flex flex-col gap-[53px] ">
+          <div className="flex flex-col gap-[20px] ">
             <ProjectsList selectedProject={selectedProject} onProjectChange={setSelectedProject} />
             <PriorityList
               selectedPriority={selectedPriority}
@@ -144,7 +144,7 @@ export default function TaskDialog({
           <Separator className="mt-4 left-0 absolute" />
         </div>
         <div className="flex gap-1 justify-end mt-6">
-          <Button className="ml-5 px-5" onClick={handleCreateOrUpdateTask}>
+          <Button className="ml-5 px-5 bg-blue-600 text-white" onClick={handleCreateOrUpdateTask}>
             {buttonText}
           </Button>
         </div>

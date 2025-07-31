@@ -21,10 +21,10 @@ export default function CreateProjectDialog({ open, onOpenChange, onCreate }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-[#202020] text-white">
         <DialogHeader>
           <DialogTitle>Create project</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Create a new project to start organizing your tasks.
           </DialogDescription>
         </DialogHeader>
@@ -37,12 +37,12 @@ export default function CreateProjectDialog({ open, onOpenChange, onCreate }) {
               id="name"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="col-span-3"
+              className="col-span-3 bg-[#202020] text-white"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleCreate}>
+          <Button type="submit" onClick={handleCreate} className="bg-blue-600 text-white">
             Create
           </Button>
         </DialogFooter>

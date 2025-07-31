@@ -61,11 +61,17 @@ export default function SingleTask({
               <DropdownMenuTrigger>
                 <BsThreeDotsVertical />
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setEditOpen(true)}>
+              <DropdownMenuContent className="bg-[#202020] text-white">
+                <DropdownMenuItem
+                  className="hover:bg-white hover:text-black"
+                  onClick={() => setEditOpen(true)}
+                >
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+                <DropdownMenuItem
+                  className="hover:bg-white hover:text-black"
+                  onClick={() => setDeleteOpen(true)}
+                >
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>

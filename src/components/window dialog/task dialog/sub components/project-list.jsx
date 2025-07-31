@@ -45,7 +45,7 @@ export default function ProjectsList({ selectedProject, onProjectChange }) {
   function renderDropDownMenuItem(projectItem) {
     return (
       <div
-        className="flex items-center gap-2 hover:bg-gray-100 cursor-pointer"
+        className="flex items-center gap-2 hover:bg-gray-100 hover-project py-1 cursor-pointer "
         onClick={() => {
           onProjectChange(projectItem);
           setIsOpen(false);
@@ -61,11 +61,11 @@ export default function ProjectsList({ selectedProject, onProjectChange }) {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <Label className="opacity-75 text-sm font-medium">Projects</Label>
+      <Label className=" text-sm font-medium">Projects</Label>
       <div className="mt-1 w-full">
         <Button
           variant={"outline"}
-          className="w-full h-11 flex justify-between items-center border glass-effect"
+          className="w-full h-11 flex justify-between items-center border bg-gray text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           {selectedProject ? renderSelectedProject() : "Select a project"}

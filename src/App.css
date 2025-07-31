@@ -175,3 +175,20 @@ hr {
   border: 1px solid #2c2c2c;
   box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.178);
 }
+
+.hover-project {
+  color: white;
+}
+
+.hover-project:hover {
+  color: black;
+}
+
+.hover-priority {
+  color: white;
+  background-color: red;
+}
+
+.hover-priority:hover {
+  color: black;
+}
