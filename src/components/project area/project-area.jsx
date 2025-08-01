@@ -143,7 +143,7 @@ export default function ProjectsArea() {
             onClick={() => navigate("/")}
           >
             <span className="text-2xl inter text-white ">Kanban</span>
-            <span className="text-2xl font-bold inter text-white">Go</span>
+            <span className="text-2xl font-bold inter text-white">Flow</span>
           </a>
         </div>
         <button className="rounded h-10 shadow-none btn-font inter text-white">
