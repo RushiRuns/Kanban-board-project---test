@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/popover";
 
 import ProjectCommandItems from "./project-command-items";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useProjects } from "../../../context/ProjectContext";
 
 export default function ProjectSelectionDropDown({

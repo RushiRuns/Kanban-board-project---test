@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { handleSuccess } from "../../lib/utils";
+import { ToastContainer } from "react-toastify";
 
 import ProjectsAreaHeader from "./project-area-header/project-area-header";
 import ProjectsAreaBoards from "./project-area-board/project-area-boards";
@@ -8,7 +9,23 @@ import { useProjects } from "../../context/ProjectContext";
 
 export default function ProjectsArea() {
   const navigate = useNavigate();
-  const { projects, addProject, updateProject, deleteProject, updateTaskCount } = useProjects();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("loggedInUser");
+    handleSuccess("User Loggedout");
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+  };
+
+  const {
+    projects,
+    addProject,
+    updateProject,
+    deleteProject,
+    updateTaskCount,
+  } = useProjects();
   const [boards, setBoards] = useState([
     {
       id: "board-1",
@@ -48,8 +65,10 @@ export default function ProjectsArea() {
 
       if (source.droppableId === destination.droppableId) {
         const newTasks = Array.from(sourceBoard.tasks);
-        const taskToMove = newTasks.find(t => t.id === result.draggableId);
-        const taskIndex = newTasks.findIndex(t => t.id === result.draggableId);
+        const taskToMove = newTasks.find((t) => t.id === result.draggableId);
+        const taskIndex = newTasks.findIndex(
+          (t) => t.id === result.draggableId
+        );
         if (taskIndex === -1) return;
         newTasks.splice(taskIndex, 1);
         newTasks.splice(destination.index, 0, taskToMove);
@@ -62,8 +81,10 @@ export default function ProjectsArea() {
         setBoards(newBoards);
       } else {
         const sourceTasks = Array.from(sourceBoard.tasks);
-        const taskToMove = sourceTasks.find(t => t.id === result.draggableId);
-        const taskIndex = sourceTasks.findIndex(t => t.id === result.draggableId);
+        const taskToMove = sourceTasks.find((t) => t.id === result.draggableId);
+        const taskIndex = sourceTasks.findIndex(
+          (t) => t.id === result.draggableId
+        );
         if (taskIndex === -1) return;
         sourceTasks.splice(taskIndex, 1);
 
@@ -83,7 +104,13 @@ export default function ProjectsArea() {
     }
   };
 
-  const handleAddTask = (taskName, taskDescription, boardId, priority, projectId) => {
+  const handleAddTask = (
+    taskName,
+    taskDescription,
+    boardId,
+    priority,
+    projectId
+  ) => {
     const newTask = {
       id: `task-${Date.now()}`,
       name: taskName,
@@ -102,26 +129,42 @@ export default function ProjectsArea() {
     updateTaskCount(projectId);
   };
 
-  const handleUpdateTask = (taskId, newTaskName, newTaskDescription, newPriority, newProjectId) => {
+  const handleUpdateTask = (
+    taskId,
+    newTaskName,
+    newTaskDescription,
+    newPriority,
+    newProjectId
+  ) => {
     setBoards((prevBoards) =>
       prevBoards.map((board) => ({
         ...board,
         tasks: board.tasks.map((task) =>
           task.id === taskId
-            ? { ...task, name: newTaskName, description: newTaskDescription, priority: newPriority, projectId: newProjectId }
+            ? {
+                ...task,
+                name: newTaskName,
+                description: newTaskDescription,
+                priority: newPriority,
+                projectId: newProjectId,
+              }
             : task
         ),
       }))
     );
 
-    const oldProjectId = boards.flatMap(board => board.tasks).find(task => task.id === taskId)?.projectId;
+    const oldProjectId = boards
+      .flatMap((board) => board.tasks)
+      .find((task) => task.id === taskId)?.projectId;
     if (oldProjectId !== newProjectId) {
       updateTaskCount(newProjectId, oldProjectId);
     }
   };
 
   const handleDeleteTask = (taskId) => {
-    const taskToDelete = boards.flatMap(board => board.tasks).find(task => task.id === taskId);
+    const taskToDelete = boards
+      .flatMap((board) => board.tasks)
+      .find((task) => task.id === taskId);
     if (taskToDelete && taskToDelete.projectId) {
       updateTaskCount(null, taskToDelete.projectId);
     }
@@ -146,9 +189,11 @@ export default function ProjectsArea() {
             <span className="text-2xl font-bold inter text-white">Flow</span>
           </a>
         </div>
-        <button className="rounded h-10 shadow-none btn-font inter text-white">
-          {" "}
-          Log out
+        <button
+          className="rounded h-10 shadow-none btn-font inter text-white"
+          onClick={handleLogout}
+        >
+          Logout
         </button>
       </div>
       <div className="kb-container inter">
@@ -164,8 +209,15 @@ export default function ProjectsArea() {
           setSelectedProject={setSelectedProject}
         />
         <hr />
-        <ProjectsAreaBoards boards={boards} onDragEnd={onDragEnd} onDeleteTask={handleDeleteTask} onUpdateTask={handleUpdateTask} selectedProject={selectedProject} />
+        <ProjectsAreaBoards
+          boards={boards}
+          onDragEnd={onDragEnd}
+          onDeleteTask={handleDeleteTask}
+          onUpdateTask={handleUpdateTask}
+          selectedProject={selectedProject}
+        />
       </div>
+       <ToastContainer />
     </div>
   );
 }

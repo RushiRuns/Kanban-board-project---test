@@ -1,4 +1,3 @@
-"use client";
 
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";

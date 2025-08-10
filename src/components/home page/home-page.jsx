@@ -21,7 +21,7 @@ export default function HomePage() {
         </p>
         <Button
           className="rounded h-10 shadow-none btn-font mt-4 mb-3 inter"
-          onClick={() => navigate("/projects")}
+          onClick={() => navigate("/SignUp")}
         >
           Get Started
         </Button>
